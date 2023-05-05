@@ -1,3 +1,5 @@
+
+
 import sqlite3
 import hashlib
 import sys
@@ -123,16 +125,16 @@ def menu(admin, staff_number):
     #cur.execute('''SELECT ALL cus_name, cus_address, cus_phone, staff_number, date_time FROM tblAPPOINTMENTS ORDER BY date_time DESC''')
     #print(cur.fetchall())
 
-def staff_menu():
+def staff_menu(staff_number):
     '''Main menu for staff members.'''
 
     #Appointments display goes here.
-
+    print("\nMenu.")
     user_select = ""
     while user_select != '1' and user_select != '2' and user_select != '3':
     #validation loop until user enters an interpretable input
 
-        print("Please select a page. \n 1. Book new appointment \n 2. View existing appointment \n 3. Log out")
+        print("\nPlease select a page. \n 1. Book new appointment \n 2. View existing appointment \n 3. Log out")
         user_select = input("Enter: ")
         if user_select == '1':
             print("Launching 'book new apppointment' page.")
@@ -143,14 +145,61 @@ def staff_menu():
         elif user_select == '3':
             sys.exit("Logging out. The program will now close.")
         else:
-            print("Error.")
+            print("Error. Please enter a valid input.")
 
     #cur.execute('''SELECT ALL cus_name, cus_address, cus_phone, staff_number, date_time FROM tblAPPOINTMENTS ORDER BY date_time DESC''')
     #print(cur.fetchall())
+
+
+def admin_menu(staff_number):
+    '''Main menu for administrators.'''
+
+    #Appointments display goes here.
+    print("\nMenu.")
+    user_select = ""
+    while user_select not in range(1,6):
+    #validation loop until user enters an interpretable input
+
+        print("\nPlease select a page. ")
+        print(" 1. Book new appointment")
+        print(" 2. View existing appointment")
+        print(" 3. Create new staff login")
+        print(" 4. Create staff table")
+        print(" 5. Create appointments table")
+        print(" 6. Log out")
+
+        try:
+            user_select = int(input("Enter: "))
+        except ValueError:
+            print("Error. Please enter a number from 1 to 6.")
+        if user_select == '1':
+            print("Launching 'book new apppointment' page.")
+            database_appointments.new_appointment(self = "", staff_number = staff_number)
+
+        elif user_select == '2':
+            print("Launching 'View existing appointment' page.")
+            database_appointments.view_appointment(self = "")
+
+        elif user_select == '3':
+            database_staff.new_staff_login(self = "")
+
+        elif user_select == '4':
+            database_staff.create_staff_table(self = "")
+
+        elif user_select == '5':
+            database_appointments.create_appointment_table(self = "")
+
+        elif user_select == '6':
+            sys.exit("Logging out. The program will now close.")
+
+        else:
+            print("Error. Please enter a number from 1 to 6.")
+
+
 
 #staff_number = login()
 #menu()
 #test##
 staff_number = '000123'
 
-database_staff.new_staff_login(self = "")
+admin_menu(staff_number = staff_number)
